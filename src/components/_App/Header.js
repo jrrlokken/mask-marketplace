@@ -23,13 +23,13 @@ function Header({ user }) {
   <Menu id="menu" stackable fluid inverted>
     <Container text>
       <Link href="/">
-        <Menu.Item header active={isActive('/')}>
+        <Menu.Item id='logo' header active={isActive('/')}>
           <Image
             size="tiny"
             src="/static/surgical-mask.png"
             style={{ marginRight: '2em' }}
           />
-          Mask Up!
+          <em>Mask Up!</em>
         </Menu.Item>
       </Link>
 
@@ -49,7 +49,7 @@ function Header({ user }) {
             name="add square"
             size="large"
           />
-          Create
+          Add Product
         </Menu.Item>
       </Link>}
 

@@ -53,7 +53,8 @@ function CreateProduct() {
       const mediaUrl = await handleImageUpload();
       const url = `${baseUrl}/api/product`;
       const payload = { ...product, mediaUrl };
-      await axios.post(url, payload);
+      console.log(product, mediaUrl);
+      // await axios.post(url, payload);
       setProduct(INITIAL_PRODUCT);
       setSuccess(true);
     } catch(error) {
@@ -67,7 +68,7 @@ function CreateProduct() {
     <>
       <Header as="h2" block>
         <Icon name="add" color="orange" />
-        Create New Product
+        Add New Product
       </Header>
       <Form loading={loading} error={Boolean(error)} success={success} onSubmit={handleSubmit}>
         <Message

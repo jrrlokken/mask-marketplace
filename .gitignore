@@ -1,0 +1,7 @@
+node_modules
+.next
+NOTES.md
+dist
+next.config.*
+now.json
+*.env

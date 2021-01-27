@@ -16,7 +16,12 @@ body {
 }
 
 .header {
-  font-size: 1.5rem;
+  font-size: 1.2rem;
+}
+
+#logo {
+  font-size: 2rem;
+  font-weight: 900;
 }
 
 /* Overrides default styled accordion styles (too much bottom padding) */

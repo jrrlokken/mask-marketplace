@@ -49,11 +49,10 @@ function CreateProduct() {
     try {
       event.preventDefault();
       setLoading(true);
-      setError('');
+      console.log(product);
       const mediaUrl = await handleImageUpload();
       const url = `${baseUrl}/api/product`;
       const payload = { ...product, mediaUrl };
-      console.log(product, mediaUrl);
       // await axios.post(url, payload);
       setProduct(INITIAL_PRODUCT);
       setSuccess(true);

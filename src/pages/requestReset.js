@@ -28,20 +28,25 @@ function Login() {
     setUser(prevState => ({ ...prevState, [name]: value }));
   }
 
-  // async function handleSubmit() {
-  //   try {
-  //     setLoading(true);
-  //     setError('');
-  //     const url = `${baseUrl}/api/login`;
-  //     const payload = { ...user };
-  //     const response = await axios.post(url, payload);
-  //     handleLogin(response.data);
-  //   } catch(error) {
-  //     catchErrors(error, setError);
-  //   } finally {
-  //     setLoading(false);
-  //   }
-  // }
+  function reset_password(req, res) {
+    async.waterfall([
+      function(done) {
+        User.findOne({
+          email: req.body.email
+        }).exec(function(err, user) {
+          if (user) {
+            done(err, user);
+          } else {
+            done('User not found');
+          }
+        });
+      },
+      function (user,done) {
+        crypto.randomBytes
+      }
+    ])
+  }
+
 
   function handleSubmit(event) {
 

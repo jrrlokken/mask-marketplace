@@ -15,6 +15,10 @@ const UserSchema = new mongoose.Schema({
     required: true,
     select: false
   },
+  resetToken: {
+    type: String,
+    required: false,
+  },
   role: {
     type: String,
     required: true,

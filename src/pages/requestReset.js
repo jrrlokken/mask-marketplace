@@ -8,14 +8,14 @@ import baseUrl from '../utils/baseUrl';
 import { handleLogin } from '../utils/auth';
 
 const INITIAL_USER = {
-  email: "",
-  password: ""
+  email: ""
 }
 
 function Login() {
   const [user, setUser] = useState(INITIAL_USER);
   const [disabled, setDisabled] = useState(true);
   const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState(false);
   const [error, setError] = useState('');
 
   useEffect(() => {
@@ -28,14 +28,31 @@ function Login() {
     setUser(prevState => ({ ...prevState, [name]: value }));
   }
 
-  async function handleSubmit() {
+  // async function handleSubmit() {
+  //   try {
+  //     setLoading(true);
+  //     setError('');
+  //     const url = `${baseUrl}/api/login`;
+  //     const payload = { ...user };
+  //     const response = await axios.post(url, payload);
+  //     handleLogin(response.data);
+  //   } catch(error) {
+  //     catchErrors(error, setError);
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // }
+
+  function handleSubmit(event) {
+
     try {
+      event.preventDefault();
       setLoading(true);
       setError('');
-      const url = `${baseUrl}/api/login`;
-      const payload = { ...user };
-      const response = await axios.post(url, payload);
-      handleLogin(response.data);
+      const payload = { ...user }
+      console.log(payload);
+      setUser(INITIAL_USER);
+      setSuccess(true);
     } catch(error) {
       catchErrors(error, setError);
     } finally {
@@ -47,16 +64,28 @@ function Login() {
     <Message 
       attached
       icon="privacy"
-      header="Welcome!"
-      content="Login with email and password"
+      header="Password reset"
+      content="Request a password reset here"
       color="blue"
     />
-    <Form error={Boolean(error)} loading={loading} onSubmit={handleSubmit}>
+    <Form 
+      error={Boolean(error)} 
+      loading={loading} 
+      success={success}
+      onSubmit={handleSubmit}
+      method='post'
+    >
       <Message
         error
         header="Oops!"
         content={error}
       />
+      <Message
+          success
+          icon="check"
+          header="Success!"
+          content="Check your email for a reset link."
+        />
       <Segment>
         <Form.Input
           fluid
@@ -69,23 +98,12 @@ function Login() {
           value={user.email}
           onChange={handleChange}
         />
-        <Form.Input
-          fluid
-          icon="lock"
-          iconPosition="left"
-          label="Password"
-          placeholder="Password"
-          name="password"
-          type="password"
-          value={user.password}
-          onChange={handleChange}
-        />
         <Button
           disabled={disabled || loading}
-          icon="sign in"
+          icon="privacy"
           type="submit"
           color="orange"
-          content="Login"
+          content="Request Reset"
         />
       </Segment>
     </Form>
@@ -94,13 +112,6 @@ function Login() {
       New user?{" "}
       <Link href="/signup">
         <a>Sign up here</a>
-      </Link>{" "}instead.
-    </Message>
-    <Message attached="bottom" warning>
-      <Icon name="help" />
-      Forgot your password?{" "}
-      <Link href="/requestReset">
-        <a>Request a reset here</a>
       </Link>{" "}instead.
     </Message>
   </>
